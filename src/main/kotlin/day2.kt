@@ -9,20 +9,26 @@ fun prev(i: Int): Int {
     return (i - 1).mod(3)
 }
 
-fun getPoints(pair: List<Int>): Int {
-    val (elf, me) = pair
-
-    if (me == prev(elf)) return 0 + me + 1  // L
-    if (me == elf)       return 3 + me + 1  // D
-    return 6 + me + 1                       // W
+infix fun Int.beats(opponent:Int): Boolean {
+    return this==next(opponent)
 }
 
-fun getAction(pair: List<Int>): Int {
-    val (elf, outcome) = pair
+infix fun Int.ties(opponent:Int): Boolean {
+    return this==opponent
+}
 
-    if (outcome == 0) return prev(elf)  // L
-    if (outcome == 1) return elf        // D
-    return next(elf)                    //W
+fun getPoints(pair: List<Int>): Int {
+    val (elf, me) = pair
+    me beats  elf && return 6 + me + 1
+    me ties   elf && return 3 + me + 1
+    return 0 + me + 1
+}
+
+val outcomes = listOf(::prev, {it}, ::next)
+
+fun getAction(pair: List<Int>): Int {
+    val (elf, i) = pair
+    return outcomes[i](elf)
 }
 
 fun main() {
