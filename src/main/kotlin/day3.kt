@@ -7,19 +7,15 @@ fun getPriority(c: Char): Int {
 }
 
 fun findCommon(list: List<String>): Int {
-    val c =  list
+    return list
         .map { it.toSet() }
         .reduce { acc, set -> acc.intersect(set) }
         .first()
-
-    return getPriority(c)
+        .let(::getPriority)
 }
 
 fun main() {
-    val bags = File("src/main/resources/3.input")
-        .readText()
-        .split("\n")
-        .dropLast(1)
+    val bags = File("src/main/resources/3.input").readLines()
 
     val part1 = bags
         .map { it.chunked(it.length/2) }
