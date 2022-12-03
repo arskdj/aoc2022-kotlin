@@ -44,8 +44,10 @@ fun main() {
             )
         }
 
-    val part1 = plays.sumOf { getPoints(it) }
-    val part2 = plays.map { listOf(it[0], getAction(it)) }.sumOf { getPoints(it) }
+    val part1 = plays.sumOf(::getPoints)
+    val part2 = plays
+        .map { listOf(it[0], getAction(it)) }
+        .sumOf(::getPoints)
 
     println(part1)
     println(part2)

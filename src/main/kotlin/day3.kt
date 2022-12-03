@@ -8,7 +8,7 @@ fun getPriority(c: Char): Int {
 
 fun findCommon(list: List<String>): Int {
     val c =  list
-        .map{ it.toSet() }
+        .map { it.toSet() }
         .reduce { acc, set -> acc.intersect(set) }
         .first()
 
@@ -23,11 +23,11 @@ fun main() {
 
     val part1 = bags
         .map { it.chunked(it.length/2) }
-        .sumOf { findCommon(it) }
+        .sumOf(::findCommon)
 
     val part2 = bags
         .chunked(3)
-        .sumOf { findCommon(it) }
+        .sumOf(::findCommon)
 
     println(part1)
     println(part2)
